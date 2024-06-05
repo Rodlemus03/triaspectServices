@@ -1,5 +1,7 @@
 package com.backend;
 
+import org.hibernate.Session;
+
 import javax.persistence.*;
 import java.util.List;
 
