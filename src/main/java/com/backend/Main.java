@@ -9,19 +9,21 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         // Obtener la sesión de Hibernate
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
+        BDManage manejoBd=new BDManage();
+        Transaction transaction=null;
+        Session sesion=manejoBd.getSession();
+
 
         try {
             // Iniciar una transacción
-            transaction = session.beginTransaction();
+            transaction = sesion.beginTransaction();
 
             Categoria category = new Categoria();
-            category.setNombre("Prueba");
-            category.setDescripcion("Descripcion prueba");
+            category.setNombre("Prueba2");
+            category.setDescripcion("Descripcion prueba2");
 
             // Guardar el objeto Producto en la base de datos
-            session.save(category);
+            sesion.save(category);
 
             // Commit de la transacción
             transaction.commit();
@@ -31,7 +33,7 @@ public class Main {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+            sesion.close();
         }
 
         // Cerrar el SessionFactory
