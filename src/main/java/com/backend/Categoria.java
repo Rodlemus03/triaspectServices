@@ -3,6 +3,7 @@ package com.backend;
 import org.hibernate.Session;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,6 +55,24 @@ public class Categoria {
 
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
+    }
+
+    public List<Categoria> getCategories() {
+        BDManage manejoBd = new BDManage();
+        Session session = manejoBd.getSession();
+        List<Categoria> categorias = new ArrayList<>();
+
+        try {
+            String hql = "FROM Categoria";
+            Query query = session.createQuery(hql, Categoria.class);
+            categorias = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return categorias;
     }
 }
 
